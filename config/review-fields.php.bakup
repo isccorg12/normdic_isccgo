@@ -1,0 +1,25 @@
+<?php
+
+return [
+    [
+        'key' => 'review-field-1',
+        'label' => '鹹度'
+    ],
+    [
+        'key' => 'review-field-2',
+        'label' => '酥度'
+    ],
+    [
+        'key' => 'review-field-3',
+        'label' => '香度'
+    ],
+    [
+        'key' => 'review-field-4',
+        'label' => '油度'
+    ],
+    [
+        'key' => 'review-field-5',
+        'label' => '世界排名'
+    ],
+];
+
