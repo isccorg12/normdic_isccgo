@@ -93,10 +93,10 @@ Route::group(['middleware' => 'web', /*'prefix' => 'nomadicore', */'namespace' =
         $lngArr = [];
 
         foreach($user->recommendations as $rec) {
-            if ($rec->cafe->latitude != 0) {
-                $latArr[] = $rec->cafe->latitude;
-                $lngArr[] = $rec->cafe->longitude;
-            }
+            //if ($rec->cafe->latitude != 0) {
+            //    $latArr[] = $rec->cafe->latitude;
+            //    $lngArr[] = $rec->cafe->longitude;
+            //}
         }
 
         if (count($latArr) > 0) {

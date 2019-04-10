@@ -29,5 +29,9 @@ class EntityTag extends Model
     {
         return $this->belongsTo('Modules\NomadiCore\Cafe');
     }
+    function entity()
+    {
+        return $this->belongsTo('Modules\NomadiCore\Entity');
+    }
 
 }

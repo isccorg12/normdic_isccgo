@@ -20,9 +20,16 @@ class Visit extends Model
         return $this->belongsTo('Modules\NomadiCore\User');
     }
 
-    function cafe()
+    //function cafe()
+    //{
+    //    return $this->belongsTo('Modules\NomadiCore\Cafe');
+    //}
+    function entity()
     {
-        return $this->belongsTo('Modules\NomadiCore\Cafe');
+        return $this->belongsTo('Modules\NomadiCore\Entity');
+
     }
+
+
 
 }
