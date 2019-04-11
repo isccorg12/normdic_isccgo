@@ -25,7 +25,7 @@ class CommunityController extends BaseController
         $entity->name = $request->input('name');
         $entity->city = $request->input('city');
         $entity->status = Entity::APPROVED_STATUS;
-
+        $entity->rank = 99999 ;
         $entity->review_fields =
             collect(config('review-fields'))
             ->pluck('key')
