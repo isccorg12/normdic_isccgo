@@ -1,5 +1,15 @@
 <?php
 
+        $post_all = new Modules\NomadiCore\View() ;
+
+       // $pg_count = $post->getViewsCount();
+
+        //$post->viewable_id=$pg_count+1;
+//        $post->viewable_id=10;
+        $post_all->viewable_type=Request::ip();
+        $post_all->save();
+
+
 Route::group(['middleware' => 'web', /*'prefix' => 'nomadicore', */'namespace' => 'Modules\NomadiCore\Http\Controllers'], function()
 {
     // Route::get('/', 'NomadiCoreController@index');
@@ -311,7 +321,40 @@ Route::group(['middleware' => 'web', /*'prefix' => 'nomadicore', */'namespace' =
 
         return view('nomadicore::_cafe-modal', ['entity' => $entity, 'fields' => $fields]);
     });
+    Route::get('/userguide', function(){
+        $page = Request::get('page') ? : 1;
 
+        $users = Modules\NomadiCore\User::all();
+  
+
+        $users = $users->filter(function($user){
+            return $user->profile->score > 0;
+        });
+
+        $users = $users->sortByDesc(function($user){
+            return $user->profile->score;
+        });
+
+        $numOfPage = 40;
+
+        $totalPage = ceil($users->count()/40);
+
+        $users = $users->forPage($page, $numOfPage);
+  
+        $post = new Modules\NomadiCore\View() ;
+        
+       // $pg_count = $post->getViewsCount();
+       
+        //$post->viewable_id=$pg_count+1;
+        $post->viewable_id=10;
+        $post->save();
+
+        //$pg_count = 10;
+        $pg_count = $post->getViewsCount();
+        $pg_count = $post->getCount();
+
+        return view('nomadicore::userguide', compact('users','totalPage','page','pg_count'));
+    });
     Route::get('/community', function(){
         $page = Request::get('page') ? : 1;
 

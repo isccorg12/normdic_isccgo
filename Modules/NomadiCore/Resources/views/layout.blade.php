@@ -268,16 +268,30 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
+                <li role="presentation" ><a href="#city-modal" data-toggle="modal" data-target="#city-modal">選擇{{Config::get('nomadic.global.category')}}</a></li>
+<?php 
 
-                <li role="presentation" ><a href="#city-modal" data-toggle="modal" data-target="#city-modal">選__擇{{Config::get('nomadic.global.category')}}</a></li>
+$post_all = new Modules\NomadiCore\View() ;
+$pg_count = $post_all->getCount();
+//echo($pg_count);
+?>
+                <!-- 
+                <li role="presentation" ><a href="#city-modal" data-toggle="modal" data-target="#city-modal">人數<?php e($pg_count)?></a></li>
+                -->
+                <li role="presentation" ><a href=""> 造訪人數<?php echo($pg_count)?></a></li>
 
                 @if(Config::get('nomadic.forum.enabled'))
                 <li role="presentation" ><a href="/forum">{{Config::get('nomadic.forum.label')}}</a></li>
                 @endif
 
                 @foreach(Config::get('nomadic.links') as $link)
-                <li role="presentation" ><a href="{{$link['url']}}" target='_blank'>{{$link['label']}}</a></li>
+                     <li role="presentation" ><a href="{{$link['url']}}" target='_blank'>{{$link['label']}}</a></li>
+                <!-- 
+                <li role="presentation" ><a href="/userguide" target='_blank'>{{$link['label']}}</a></li>
+                -->
                 @endforeach
+
+
 
                 <li role="presentation" @if(Request::path()=='community') class="active" @endif><a href="/community">{{trans('layout.nav.contributors')}}@if(Request::path()=='community') <span class="sr-only">(目前頁面)</span> @endif</a></li>
 

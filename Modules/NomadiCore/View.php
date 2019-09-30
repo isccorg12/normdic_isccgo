@@ -1,34 +1,20 @@
 <?php
 
+/*namespace App\Models;*/
 namespace Modules\NomadiCore;
 
 use Illuminate\Database\Eloquent\Model;
-
-/*##
-# add here
-*/
 use Carbon\Carbon;
 
-class Post extends Model
+class View extends Model
 {
+    protected $table = 'views';
+    protected $guarded = ['id'];
 
-    function user()
-    {
-        return $this->belongsTo('Modules\NomadiCore\User');
-    }
 
-    function discussion()
-    {
-        return $this->belongsTo('Modules\NomadiCore\Discussion');
-    }
-
-    function comments()
-    {
-        return $this->hasMany('Modules\NomadiCore\PostComment');
-    }
-
-//#### add counter here
 /*
+#### add counter here
+*/
     public function views()
     {
         $this->increment('id');
@@ -36,19 +22,24 @@ class Post extends Model
        // return $this->morphMany('viewable');
     }
 
-    
+    /**
      * Get the total number of views.
      *
      * @return int
-    
+     */
     public function getViewsCount()
     {
         return $this->views()->count();
+    }
+
+    
+    public function getCount()
+    {
+        return $this->count();
     }
 
     public function getViewsCountSince($sinceDateTime)
     {
         return $this->views()->where('created_at', '>', $sinceDateTime)->count();
     }
-*/
 }

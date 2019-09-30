@@ -28,8 +28,8 @@ return [
     ],
     'links' => [
         [
-            'url' => 'http://www.isccgo.org/',
-            'label' => 'ISCC 評比',
+            'url' => 'http://www.isccgo.org/userguide',
+            'label' => '關於本站',
         ],
     ],
     'tag-page' => [

@@ -182,7 +182,8 @@ class SocialController extends BaseController
 
     function reviewers($id)
     {
-        $cafe = Cafe::find($id);
+        #$cafe = Cafe::find($id);
+        $cafe = Entity::find($id);
 
         return view('nomadicore::reviewers', ['cafe' => $cafe]);
     }

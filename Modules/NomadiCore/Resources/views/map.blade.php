@@ -337,10 +337,18 @@
 
             updateBorder({ latitude:  cafe.latitude, longitude: cafe.longitude });
              
-            var infowindow = new google.maps.InfoWindow({
-              content: ""+cafe.name+"<BR>目前排名:"+cafe.rank+"<BR> Google評分:"+cafe.rating
+            
+            if (cafe.rank < 9999) { 
+              var infowindow = new google.maps.InfoWindow({
+                content: ""+cafe.name+"<BR>目前排名:"+cafe.rank+"<BR> Google評分:"+cafe.rating
+              });
+            } else {
+
+              var infowindow = new google.maps.InfoWindow({
+                content: ""+cafe.name+"<BR>目前排名: 資料不足 <BR> Google評分:"+cafe.rating
               });
 
+            }
             google.maps.event.addListener(marker, 'mouseover', function() {
                  infowindow.open(map, marker) ;
             });

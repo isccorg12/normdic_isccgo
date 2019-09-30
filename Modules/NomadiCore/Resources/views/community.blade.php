@@ -13,6 +13,16 @@
             <h3>請寄至isccorg12@gmail.com </h3>
             <h3><a href="https://www.ieee.org/content/dam/ieee-org/ieee/web/org/conferences/Conference-template-A4.doc">論文範本下載</a></h3>
             <h3><a href="/00.iscc.scoring.2018.pdf">2018 最佳論文(best paper award): 一種新的鹽酥雞評分標準</a></h3>
+            <embed src="/00.iscc.scoring.2018.pdf" type="application/pdf" width="100%" height="2200px" />
+            <h3><a href="/00.iscc.scoring.2018.pdf">2019: ISCCC Agenda </a></h3>
+            <embed src="/2019_PAPER/04.pdf" type="application/pdf" width="100%" height="2200px" />
+            <h3><a href="/00.iscc.scoring.2018.pdf">2019 論文: 鹽酥雞與單一麥芽威士忌的搭配研究</a></h3>
+            <embed src="/2019_PAPER/00.whisky.pdf" type="application/pdf" width="100%" height="2200px" />
+            <h3><a href="/00.iscc.scoring.2018.pdf">2019 論文: 如何炸出基本分的鹽酥雞</a></h3>
+            <embed src="/2019_PAPER/01.how.pdf" type="application/pdf" width="100%" height="2200px" />
+            <h3><a href="/00.iscc.scoring.2018.pdf">2019 論文: 解決鹽酥雞在跨年夜的產能問題</a></h3>
+            <embed src="/2019_PAPER/02.iscc.massproduction.2019.pdf" type="application/pdf" width="100%" height="2200px" />
+
         </div>
     </div>
 
