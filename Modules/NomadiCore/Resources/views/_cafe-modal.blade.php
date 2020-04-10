@@ -4,8 +4,9 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel" style='margin-bottom: 10px;'>
-            <span class='cafe-name'>{{$entity->name}}@if($entity->status == Modules\NomadiCore\Entity::CLOSED_STATUS)（已歇業）@endif</span>
+            <span class='cafe-name'>{{$entity->name}}  查詢熱度{{visits($entity)->count()}} @if($entity->status == Modules\NomadiCore\Entity::CLOSED_STATUS)（已歇業）@endif</span>
         </h4>
+        有{{visits($entity)->count()}}人查過這間
         @include('nomadicore::cafe-modal/_like-box')
       </div>
       <div class="modal-body">

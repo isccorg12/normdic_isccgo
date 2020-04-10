@@ -63,6 +63,17 @@ class Entity extends Model
         'is_donated' => 'boolean',
         'recommendation_count' => 'integer',
     ];
+    public function visits()
+    {
+          return visits($this);
+    }
+
+    public static function  acmp(Entity $a, Entity $b)
+{
+      //$aa=$a->visits()->count();
+     //return $a->visits()->count();
+     return $a->visits()->count() < $b->visits()->count() ;
+}
 
     public function searchable()
     {

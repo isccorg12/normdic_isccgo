@@ -268,10 +268,14 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                <li role="presentation" ><a href="#city-modal" data-toggle="modal" data-target="#city-modal">選擇{{Config::get('nomadic.global.category')}}</a></li>
+                <li role="presentation" ><a href="/top50/list">世界前50名店</a></li>
+                <li role="presentation" ><a href="#city-modal" data-toggle="modal" data-target="#city-modal">名店資訊</a></li>
+                <!-- <li role="presentation" ><a href="#city-modal" data-toggle="modal" data-target="#city-modal">選擇名店{{Config::get('nomadic.global.category')}}</a></li>
+-->
 <?php 
 
 $post_all = new Modules\NomadiCore\View() ;
+//visits('link1')->increment();
 $pg_count = $post_all->getCount();
 //echo($pg_count);
 ?>
@@ -296,7 +300,9 @@ $pg_count = $post_all->getCount();
                 <li role="presentation" @if(Request::path()=='community') class="active" @endif><a href="/community">{{trans('layout.nav.contributors')}}@if(Request::path()=='community') <span class="sr-only">(目前頁面)</span> @endif</a></li>
 
                 @if(LaravelLocalization::getCurrentLocale() === 'zh-TW')
-                <li role="presentation" @if(Request::path()=='contribute') class="active" @endif><a href="/contribute">新增{{ config('nomadic.global.subject') }}@if(Request::path() == 'contribute') <span class="sr-only">(目前頁面)</span> @endif</a></li>
+                <li role="presentation" @if(Request::path()=='contribute') class="active" @endif>
+                <a href="/contribute">新增{{ config('nomadic.global.subject') }}@if(Request::path() == 'contribute') 
+                <span class="sr-only">(目前頁面)</span> @endif</a></li>
 
                 @endif
                 <!--

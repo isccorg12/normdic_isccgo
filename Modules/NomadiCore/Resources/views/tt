@@ -1,0 +1,64 @@
+
+<?php
+ $docs = new Modules\NomadiCore\Doc();
+ $all = $docs->all();
+ 
+?>
+
+
+<div class='row'>
+        <h3>目前發表論文  </h3>
+    <div id='table-wrapper'>
+
+        <!--
+        <input class="search form-control" placeholder="Search" />
+        <br />
+        -->
+        <div class="table-responsive">
+            <table class='table table-hover table-condensed'>
+                <thead>
+                    <tr>
+                    <?php $label4=config::get('nomadic.global.rank');
+                    ?>
+                    <th>檔名</th>
+                    <th class="sort -large" data-sort="c1">論文主題</th>
+                    <th>作者</th>
+                    <th>被下載次數</th>
+
+                    </tr>
+                </thead>
+                <tbody class="list">
+                    @foreach($all as $doc)
+                    <tr id='id' class='docclass' onclick="openModalByUuid('111', 'list')">
+                        <td class="c0">
+                            <div style='text-overflow: ellipsis; width: 110px; overflow: hidden;'>
+                                <a href='/doc/{{$doc->id}}'  class="seo-link">{{$doc->file_name}}</a>
+                            </div>
+                        </td>
+
+                        <td class="c1 {{'rank'}}">
+                            <?php
+                                     echo("<font color='#800000'>$doc->topic</font>");
+                            ?>
+                         </td>
+
+                        <td class="c1">
+                            <div style='text-overflow: ellipsis; max-width: 90px; overflow: hidden;'>
+                                 {{$doc->author}}
+                            </div>
+                        </td>
+                        <td class="c1">
+                            <div style='text-overflow: ellipsis; max-width: 90px; overflow: hidden;'>
+                                {{ visits($doc)->count()}} 
+                            </div>
+                        </td>
+
+
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

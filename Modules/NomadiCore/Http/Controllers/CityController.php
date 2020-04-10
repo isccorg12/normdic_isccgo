@@ -12,6 +12,8 @@ use Modules\NomadiCore\Cafe;
 use Modules\NomadiCore\Entity;
 use Modules\NomadiCore\City;
 use CafeNomad;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 class CityController extends BaseController
 {
@@ -27,25 +29,42 @@ class CityController extends BaseController
 
     function createListPage($city)
     {
-        session(['mode' => 'list']);
+        if($city=="top50"){
+            $city='taipei';
+            session(['mode' => 'list']);
+            session(['city' => $city]);
+            Layout::setCity($city);
+            CafeNomad::setMode('list');
 
-        session(['city' => $city]);
+            $fields = City::getFields($city);
+            //$entities = Entity::where('city', $city)->where('status', 10)->get();
+            //$entities = Entity::where('status', 10)
+                        //->orderBy('review_no','desc')
+            $entities = Entity::orderBy('rank','asc')
+                        ->take(50)
+                        ->get();
 
-        Layout::setCity($city);
+            $agent = new \Jenssegers\Agent\Agent();
+            return view($this->getView($city), ['entities' => $entities, 'fields' =>        $fields]);
 
-        CafeNomad::setMode('list');
+        
+        } else {
+            session(['mode' => 'list']);
+            session(['city' => $city]);
+            Layout::setCity($city);
+            CafeNomad::setMode('list');
 
-        $fields = City::getFields($city);
+            $fields = City::getFields($city);
+            //$entities = Entity::where('city', $city)->where('status', 10)->get();
+            //$entities = Entity::where('city', $city)->where('status', 10)
+            $entities = Entity::where('city', $city)
+                        //->orderBy('review_no','desc')
+                        ->orderBy('rank','asc')
+                        ->get();
 
-        //$entities = Entity::where('city', $city)->where('status', 10)->get();
-        $entities = Entity::where('city', $city)->where('status', 10)
-                    //->orderBy('review_no','desc')
-                    ->orderBy('rank','asc')
-                    ->get();
-
-        $agent = new \Jenssegers\Agent\Agent();
-
-        return view($this->getView($city), ['entities' => $entities, 'fields' => $fields]);
+            $agent = new \Jenssegers\Agent\Agent();
+            return view($this->getView($city), ['entities' => $entities, 'fields' => $fields]);
+        }
     }
 
     function createMapPage($city)
@@ -98,6 +117,26 @@ class CityController extends BaseController
     }
     function createL1MapPage($lat, $lng)
     {
+
+$redis=app('redis.connection');
+$redis->rpush('map_query',"$lat,$lng");
+#$all=$redis->lrange('mapxy',0,-1);
+#$echo($all);
+
+#$process = new Process(['/home/Dean/12.get_xy_update.csv.py', "$lat", "$lng" ]);
+#
+#try {
+#    $process->mustRun();
+#
+#    echo $process->getOutput();
+#} catch (ProcessFailedException $exception) {
+#    echo $exception->getMessage();
+#}
+
+
+#$process->start();
+
+
         $city='nantou';
         session(['mode' => 'map']);
 

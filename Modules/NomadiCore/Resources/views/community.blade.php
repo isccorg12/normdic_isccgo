@@ -5,6 +5,65 @@
 @section('content')
 
 <div class='container'>
+
+
+<?php
+ $docs = new Modules\NomadiCore\Doc();
+ $all = $docs->all();
+ 
+?>
+
+
+<div class='row'>
+        <h3>目前熱門論文  </h3>
+    <div id='table-wrapper'>
+
+        <!--
+        <input class="search form-control" placeholder="Search" />
+        <br />
+            <table class='table table-hover table-condensed'>
+        -->
+        <div class="table-responsive">
+            <table class='table table-hover table-condensed'>
+                <thead>
+                    <tr>
+                    <?php $label4=config::get('nomadic.global.rank');
+                    ?>
+                    <th><H5>被下載次數</th>
+                    <th ><h5>論文主題</th>
+                    <th><h5>作者</th>
+
+                    </tr>
+                </thead>
+                <tbody class="list">
+                    @foreach($all as $doc)
+                    <tr id='id' class='docclass' onclick="openModalByUuid('111', 'list')">
+
+                        <td class="c1">
+                            <div style='text-overflow: ellipsis; max-width: 90px; overflow: hidden;'>
+                                <a href='/doc/{{$doc->id}}'  class="seo-link">{{visits($doc)->count()}}</a>
+                            </div>
+                        </td>
+                        <td class="c1 {{'rank'}}">
+
+                                 <a href='/doc/{{$doc->id}}'  ><font color='#800000'> {{$doc->topic}} </font> </a> 
+                         </td>
+
+                        <td class="c1">
+                            <div style='text-overflow: ellipsis; max-width: 90px; overflow: hidden;'>
+                                 {{$doc->author}}
+                            </div>
+                        </td>
+
+
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
     <div class='row'>
         <div class="col-md-12">
             <h3>Call for ISCC technology papers (鹽酥科技論文) deadline (2019/04/30)</h3>

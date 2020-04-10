@@ -9,6 +9,17 @@
         $post_all->viewable_type=Request::ip();
         $post_all->save();
 
+        ////visits($post_all)->increment();
+        //$doc= new Modules\NomadiCore\Doc() ;
+        //$doc->topic = 'new data';
+        //$doc->file_name = 'isscpater';
+        //$doc->author = 'Tom';
+        //$doc->save();
+
+        //$tmp=$doc->docs(1);
+
+        //visits($tmp)->forceIncrement(100);
+        //visits($post_all)->forceIncrement(1);
 
 Route::group(['middleware' => 'web', /*'prefix' => 'nomadicore', */'namespace' => 'Modules\NomadiCore\Http\Controllers'], function()
 {
@@ -90,7 +101,9 @@ Route::group(['middleware' => 'web', /*'prefix' => 'nomadicore', */'namespace' =
     });
 
     Route::get('/logout', function(){
+        Session::regenerate();
         Session::flush(); 
+        #Session::put('cafe_id',10);
         Auth::logout();
         return redirect('/');
     });
@@ -319,6 +332,7 @@ Route::group(['middleware' => 'web', /*'prefix' => 'nomadicore', */'namespace' =
             'mode' => Request::get('mode')
         ]);
 
+        visits($entity)->forceIncrement();
         return view('nomadicore::_cafe-modal', ['entity' => $entity, 'fields' => $fields]);
     });
     Route::get('/userguide', function(){
@@ -353,8 +367,96 @@ Route::group(['middleware' => 'web', /*'prefix' => 'nomadicore', */'namespace' =
         $pg_count = $post->getViewsCount();
         $pg_count = $post->getCount();
 
-        return view('nomadicore::userguide', compact('users','totalPage','page','pg_count'));
+       // visits($post)->forceIncrement(100);
+        visits($post)->forceIncrement();
+        visits('Modules\NomadiCore\View')->count();
+        $pg_count = visits($post)->count();
+        //$pg_count=visits('Modules\NomadiCore\View')->count();
+        $pg_count = visits($post,'tag')->count();
+        visits($post,'php.doc')->forceIncrement();
+        $pg_count = visits($post,'php.doc')->count();
+        $pg_count=visits('Modules\NomadiCore\View')->count();
+        $pg_count=visits('Modules\NomadiCore\View')->count();
+        $pg_count=visits('Modules\NomadiCore\View','php.doc')->count();
+        $pg_count = visits($post,'php.doc')->count();
+
+        $doc= new Modules\NomadiCore\Doc() ;
+
+        $tmp=$doc->docs(2);
+
+        #visits($tmp)->forceIncrement(100);
+        $pg_count = visits($tmp)->count();
+
+
+
+        //return view('nomadicore::userguide', compact('users','totalPage','page','pg_count'));
+        
+        //Cache::store('redis')->forget('userguide');
+
+        if(Cache::store('redis')->has('userguide')) {
+             return Cache::store('redis')->get('userguide');
+         } else {
+            // $res=view('nomadicore::userguide', compact('users','totalPage','page','pg_count'));
+             $re=View::make('nomadicore::userguide', compact('users','totalPage','page','pg_count'));
+             //$res=10;
+             echo("no cache, creating");
+             //echo($re);
+             $res= (string)$re;
+             try{
+                Cache::store('redis')->put('userguide',$res,60);
+             } catch (Exception $e) {
+                echo("error");
+                echo($e); 
+             } 
+
+         }
+        return Cache::store('redis')->get('userguide');
+
+//
+//        if(!Cache::has('userguide')) {
+//            // $res=view('nomadicore::userguide', compact('users','totalPage','page','pg_count'));
+//             //$res=View::make('nomadicore::userguide', compact('users','totalPage','page','pg_count'));
+//             $res=10;
+//             echo("no cache, creating");
+//             echo($res);
+//             try{
+//                 Cache::put('userguide',$res,10);
+//             } catch (Exception $e) {
+//               echo("error");
+//               echo($e);
+//             }
+//
+//
+//        }
+//
+
+
+
+        return Cache::get('userguide');
     });
+
+
+
+    Route::get('/doc/{id}', function($id){
+
+        //$id=1 ;
+        $doc= new Modules\NomadiCore\Doc();
+        $tmp=$doc->docs($id) ;
+        #$entity = Modules\NomadiCore\Entity::find($id);
+        visits($tmp)->forceIncrement();
+        //$tmp->topic="一種新的鹽酥雞的評分標準";
+        //$tmp->file_name="00.iscc.scoring.2018.pdf";
+        //$tmp->author="Dean";
+        //$tmp->save();
+        $path="https://www.isccgo.org/".$tmp->file_name;
+        return Redirect::to($path);
+        //return view('nomadicore::doc', ['doc' => $tmp]);
+
+        #return view('nomadicore::editing', ['entity' => $entity]);
+
+    });
+
+
     Route::get('/community', function(){
         $page = Request::get('page') ? : 1;
 

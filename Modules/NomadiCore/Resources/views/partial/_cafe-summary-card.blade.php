@@ -5,7 +5,7 @@
     <div class='title'>ID</div>
     <div class='value'>{{$cafe->id}}</div>
     <br>
-    <div class='title'>有 {{$cafe->recommendations->count()}} 人去過</div>
+    <div class='title'>有 CCC{{$cafe->recommendations->count()}} 人去過</div>
     @foreach($cafe->recommendations as $rec)
     <img src='{{$rec->user->profile->avatar}}'>
     @endforeach

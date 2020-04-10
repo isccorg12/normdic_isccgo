@@ -46,6 +46,11 @@
 
         var donatedIcon = '/img/markers/star.png';
 
+         var ay_len = {{ count($cafes) }} ;
+        var m = 20;
+        var i=0;        
+        var pic_no = 0 ; 
+
         @foreach( $cafes as $cafe)
 
         var type = 'normal';
@@ -53,8 +58,15 @@
         @if($cafe->opening_date != null)
             var type = 'new';
         @endif
-
+              for ( j =0; j<m ; j++ ) {
+                    
+                   if ( ( i > ay_len/m*j ) && (i<(ay_len/m)*(j+1))) {
+                        pic_no=j;
+                        break;  
+                   }
+              }
         cafes.push({
+            "pic_no": pic_no, 
             "id": "{{ $cafe->id }}",
             "rank": "{{ $cafe->rank }}", 
             "rating": "{{ $cafe->rating }}",
@@ -86,6 +98,7 @@
             qualified: true,
             "isGoodForWorking": @if($cafe->isGoodForWorking()) true @else false @endif
         });
+        i=i+1;
         @endforeach
     </script>
 
@@ -321,13 +334,18 @@
 //brown.png
 
         cafes.map(function(cafe){
+           console.log(cafe.pic_no); 
+           //alert(cafe.pic_no);
 
             var marker = new google.maps.Marker({
               position: {lat: cafe.latitude, lng: cafe.longitude},
               map: map,
               animation: google.maps.Animation.DROP,
               zIndex: 1000-cafe.rank,
-              icon: (cafe.rank < 20) ? '/img/markers/star.png' :  cafe.rank <50 ?  '/img/markers/b0.png' : cafe.rank < 80 ? '/img/markers/b1.png' : cafe.rank < 100 ? '/img/markers/b2.png' : cafe.rank < 150 ? '/img/markers/b3.png' : cafe.rank < 200 ? '/img/markers/b4.png' : '/img/markers/b5.png'
+              //icon: (cafe.rank < 20) ? '/img/markers/star.png' :  cafe.rank <50 ?  '/img/pe/1.png' : cafe.rank < 80 ? '/img/pe/2.png' : cafe.rank < 100 ? '/img/pe/3.png' : cafe.rank < 150 ? '/img/pe/4.png' : cafe.rank < 200 ? '/img/pe/5.png' : '/img/pe/6.png'
+              icon: (cafe.pic_no < 1) ? '/img/markers/star.png' :  cafe.pic_no <3 ?  '/img/pe/1.png' : cafe.pic_no < 7 ? '/img/pe/2.png' : cafe.pic_no < 11 ? '/img/pe/3.png' : cafe.pic_no < 15 ? '/img/pe/4.png' : cafe.pic_no < 19 ? '/img/pe/5.png' : '/img/pe/6.png'
+              //icon: (care.pic_no < 1) ? '/img/markers/star.png' :  care.pic_no <2 ?  '/img/pe/1.png' : care.pic_no < 3 ? '/img/pe/2.png' : care.pic_no < 4 ? '/img/pe/3.png' : care.pic_no < 5 ? '/img/pe/4.png' : care.pic_no < 6 ? '/img/pe/5.png' : '/img/pe/6.png'
+              //icon: (cafe.rank < 20) ? '/img/markers/star.png' :  cafe.rank <50 ?  '/img/markers/b0.png' : cafe.rank < 80 ? '/img/markers/b1.png' : cafe.rank < 100 ? '/img/markers/b2.png' : cafe.rank < 150 ? '/img/markers/b3.png' : cafe.rank < 200 ? '/img/markers/b4.png' : '/img/markers/b5.png'
               
             });
 

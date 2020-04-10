@@ -2,9 +2,9 @@
 
 return [
     'nav' => [
-        'choose-city' => '選擇城市',
+        'choose-city' => '選擇鹽酥雞',
         'forum' => '討論版',
-        'contributors' => '相關研究及研討會資訊',
+        'contributors' => '研究論文',
         'feedback' => '意見與留言板',
         'create' => '新增店家',
         'group' => '社團',

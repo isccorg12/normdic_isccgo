@@ -24,6 +24,7 @@
                     @foreach(Config::get('info-fields') as $field)
                     <th>{{$field['label']}}</th>
                     @endforeach
+                    <th>地點 </th>
 
 
 
@@ -78,6 +79,8 @@
                     @endif 
                     </td>
                     @endforeach
+                    
+                    <td class="c1 -small"> {{$entity->address}} </td>
 
                 </tr>
                 @endforeach
